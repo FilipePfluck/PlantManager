@@ -1,8 +1,8 @@
-import {Welcome} from './src/screens/welcome'
+import React from 'react';
 
 import { ThemeProvider } from 'styled-components'
 
-import React from 'react';
+import Routes from './src/routes'
 
 import light from './src/styles/themes/light'
 import dark from './src/styles/themes/dark'
@@ -10,7 +10,7 @@ import dark from './src/styles/themes/dark'
 const App = () => {
   return (
     <ThemeProvider theme={light}>
-      <Welcome/>
+      <Routes/>
     </ThemeProvider>
   );
 };
