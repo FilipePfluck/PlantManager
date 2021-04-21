@@ -6,7 +6,9 @@ interface ContainerProps {
 
 export const Container = styled.TouchableOpacity<ContainerProps>`
     background-color: ${props => {
-        return props.isDisabled ? '#99DCB4' : props.theme.colors.green
+        return props.isDisabled 
+            ? props.theme.colors.green_light 
+            : props.theme.colors.green
     }};
     height: 56px;
     border-radius: 16px;

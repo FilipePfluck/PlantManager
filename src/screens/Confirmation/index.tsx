@@ -20,7 +20,7 @@ export function Confirmation (){
                     com muito cuidado
                 </S.Subtitle>
                 <S.Footer>
-                    <Button>
+                    <Button onPress={()=>{navigate('PlantSelect')}}>
                         Começar
                     </Button>
                 </S.Footer>
