@@ -31,77 +31,85 @@ interface PlantProps {
 
 export function PlantSelect(){
     const [environments, setEnvironments] = useState<EnvProps[]>([])
-    const [selectedEnvironment, setSelectedEnvironment] = useState('all')
+  const [plants, setPlants] = useState<PlantProps[]>([])
+  const [filteredPlants, setFilteredPlants] = useState<PlantProps[]>([])
+  const [environmentSelected, setEnvironmentSelected] = useState('all')
+  const [loading, setLoading] = useState(true)
+  
+  const [page, setPage] = useState(1)
+  const [loadingMore, setLoadingMore] = useState(false)
+  const [loadedAll, setLoadedAll] = useState(false)
 
-    const [plants, setPlants] = useState<PlantProps[]>([])
-    const [filteredPlants, setFilteredPlants] = useState<PlantProps[]>([])
+  function handleEnvironmentSelected(environment: string) {
+    setEnvironmentSelected(environment)
+  }
 
-    const [loading, setLoading] = useState(true)
+  async function fetchPlants() {
+    const { data } = await api.get(`plants?_sort=name&_order=asc&_page=${page}&_limit=8`)
 
-    const [page, setPage] = useState(1)
-    const [loadingMore, setLoadingMore] = useState(false)
-    const [loadedAll, setLoadedAll] = useState(false)
+    if(!data)
+    return setLoading(true)
 
-    const handleSelectEnvironment = useCallback((env: string)=>{
-        setSelectedEnvironment(env)
-    },[])
-
-    const fetch = ()=>{
-        api.get(`plants?_sort=name&_order=asc&_page=${page}&_limit=8`)
-            .then(response => {
-                if(!response.data)
-                return setLoading(true)
-
-                if(page>1){
-                    setPlants(state => [state, ...response.data])
-                }else{
-                    setPlants(response.data)
-                    setFilteredPlants(response.data)
-                }
-
-                setLoading(false)
-                setLoadingMore(false)
-            })
+    if(!data[0]){
+        setLoadedAll(true)
+        return
     }
 
-    const handleFetchMore = (distance: number)=>{
-        if(distance < 1) return
-
-        setLoadingMore(true)
-        setPage(state => state + 1)
-
-        fetch()
+    if (page > 1) {
+      setPlants(oldValue => [...oldValue, ...data])
+    } else {
+      setPlants(data)
+      setFilteredPlants(data)
     }
 
-    useEffect(()=>{
-        console.log('a')
-    },[handleFetchMore])
+    setLoading(false)
+    setLoadingMore(false)
+  }
 
-    useEffect(()=>{
-        if(selectedEnvironment === 'all'){
-            setFilteredPlants(plants)
-            return
-        }
+  function handleFetchMore(distance: number) {
+    if(loadedAll){
+        return
+    }
 
-        const filtered = plants.filter(plant => {
-            return plant.environments.includes(selectedEnvironment)
-        })
+    if (distance < 1)
+      return
 
-        setFilteredPlants(filtered)
-    },[plants, selectedEnvironment])
+    setLoadingMore(true)
+    setPage(oldValue => oldValue + 1)
+    fetchPlants()
+  }
 
-    useEffect(()=>{
-        api.get('plants_environments').then(response => {
-            setEnvironments([{
-                key: 'all',
-                title: 'Todos'
-            },...response.data])
-        })
-    }, [])
+  useEffect(()=>{
+    if (environmentSelected === 'all')
+      return setFilteredPlants(plants)
 
-    useEffect(()=>{
-        fetch()
-    },[])
+    const filtered = plants.filter(plant => 
+      plant.environments.includes(environmentSelected)
+    )
+
+    setFilteredPlants(filtered)
+  },[environmentSelected, plants])
+
+  useEffect(() => {
+    async function fetchEnvironment() {
+      const { data } = await api
+      .get('plants_environments?_sort=title&_order=asc')
+
+      setEnvironments([
+        {
+          key: 'all',
+          title: 'Todos'
+        },
+        ...data
+      ])
+    }
+
+    fetchEnvironment()
+  }, [])
+
+  useEffect(() => {
+    fetchPlants()
+  }, [])
 
     return loading ? <Load/> : (
         <S.Container>
@@ -115,8 +123,8 @@ export function PlantSelect(){
                     data={environments}
                     renderItem={({item})=>(
                         <EnviromentButton 
-                            isActive={item.key === selectedEnvironment}
-                            onPress={()=>handleSelectEnvironment(item.key)}
+                            isActive={item.key === environmentSelected}
+                            onPress={()=>handleEnvironmentSelected(item.key)}
                         >
                             {item.title}
                         </EnviromentButton>
