@@ -7,9 +7,9 @@ interface EnviromentButtonProps extends RectButtonProps {
     isActive?: boolean
 }
 
-const EnviromentButton: React.FC<EnviromentButtonProps> = ({isActive=false, children}) => {
+const EnviromentButton: React.FC<EnviromentButtonProps> = ({isActive=false, children, ...rest}) => {
     return(
-        <S.Container isActive={isActive}>
+        <S.Container isActive={isActive} {...rest}>
             <S.ButtonText isActive={isActive}>{children}</S.ButtonText>
         </S.Container>
     )

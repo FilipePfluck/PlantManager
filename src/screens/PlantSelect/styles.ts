@@ -21,7 +21,6 @@ export const Subtitle = styled.Text`
 
 export const PlantListContainer = styled.View`
     flex: 1;
-    background-color: #333;
     margin: 0;
     justify-content: center;
 `
