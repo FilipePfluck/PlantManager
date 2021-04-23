@@ -70,7 +70,10 @@ export function PlantSave (){
     },[showDatePicker])
 
     return(
-        <S.Container>
+        <S.Container
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{flex: 1, justifyContent: 'space-around'}}
+        >
             <S.PlantInfo>
                 <SvgFromUri 
                     uri={plant.photo}

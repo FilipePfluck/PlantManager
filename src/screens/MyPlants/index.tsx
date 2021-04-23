@@ -1,19 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import { FlatList, View } from 'react-native'
-
-import { getHours} from 'date-fns'
-import { pt } from 'date-fns/locale'
+import { FlatList, Alert } from 'react-native'
 
 import { PlantProps } from '../../interfaces/plant'
-import { loadPlant } from '../../services/storage'
+import { deletePlant, loadPlant, StoragePlantProps } from '../../services/storage'
 
 import { getDifferenceInHours } from '../../utils/getDifferenceInHours'
 
-import Header from '../../components/Header'
+import Load from '../../components/Load'
 import Tip from '../../components/Tip'
 import PlantCardSecondary from '../../components/PlantCardSecondary'
 
 import * as S from './styles'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export function MyPlants () {
     const [myPlants, setMyPlants] = useState<PlantProps[]>([])
@@ -49,11 +47,34 @@ export function MyPlants () {
         setLoading(false)
     }
 
+    function handleRemove (plant: PlantProps){
+        Alert.alert('Remover', `Deseja remover a ${plant.name}?`, [
+            {
+                text: 'Não',
+                style: 'cancel'
+            },
+            {
+                text: 'Sim',
+                onPress: async () => {
+                    try{
+                        await deletePlant(plant.id)
+
+                        setMyPlants(state => state.filter(p => {
+                            return p.id !== plant.id
+                        }))
+                    }catch (error){
+                        Alert.alert('Não foi possível remover')
+                    }
+                }
+            }
+        ])
+    }
+
     useEffect(()=>{
         loadStorageData()
     },[])
 
-    return(
+    return loading ? <Load/> : (
         <S.Container>
             <Tip>{nextWatering}</Tip>
             <S.PlantTitle>Suas plantas</S.PlantTitle>
@@ -64,6 +85,7 @@ export function MyPlants () {
                     renderItem={({item})=>(
                         <PlantCardSecondary
                             data={item}
+                            handleRemove={() => handleRemove(item)}
                         />
                     )}
                     showsVerticalScrollIndicator={false}

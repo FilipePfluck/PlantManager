@@ -3,11 +3,9 @@ import styled from 'styled-components/native'
 import { getBottomSpace } from 'react-native-iphone-x-helper'
 import { RectButton } from 'react-native-gesture-handler'
 
-export const Container = styled.View`
-    flex: 1;
+export const Container = styled.ScrollView`
     padding: 16px;
     position: relative;
-    justify-content: space-around;
 `
 
 export const PlantInfo = styled.View`

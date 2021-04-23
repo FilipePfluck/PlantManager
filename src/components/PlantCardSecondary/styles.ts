@@ -37,3 +37,16 @@ export const Time = styled.Text`
     font-weight: bold;
     color: ${props => props.theme.colors.body_dark};
 `
+
+export const Remove = styled(RectButton)`
+    width: 100px;
+    height: 120px;
+    background-color: ${props => props.theme.colors.red};
+    margin-top: 15px;
+    border-radius: 24px;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    right: 20px;
+    padding-left: 16px;
+`
