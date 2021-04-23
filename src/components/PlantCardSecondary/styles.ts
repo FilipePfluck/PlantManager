@@ -11,14 +11,15 @@ export const Container = styled(RectButton)`
     background-color: ${props => props.theme.colors.shape};
     border-radius: 24px;
 
-    padding: 48px 12px;
-    margin: 4px 0;
+    padding: 42px 18px;
+    margin: 6px 0;
 `
 
 export const Title = styled.Text`
     flex: 1;
     margin-left: 10px;
     font-weight: bold;
+    color: ${props => props.theme.colors.heading};
 `
 
 export const Details = styled.View`

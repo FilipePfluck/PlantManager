@@ -58,7 +58,7 @@ export function PlantSave (){
                 subtitle: 'Fique tranquilo que sempre vamos lembrar você de cuidar da sua plantinha com muito cuidado',
                 buttonTitle: 'Muito obrigado :D',
                 icon: 'hug',
-                nextPage: 'MyPlants'
+                nextPage: 'TabRoutes'
             })
         }catch{
             Alert.alert('Não foi possível salvar sua plantinha')
@@ -81,10 +81,11 @@ export function PlantSave (){
                 <S.PlantName>{plant.name}</S.PlantName>
 
                 <S.PlantAbout>{plant.about}</S.PlantAbout>
+
+                <Tip>{plant.water_tips}</Tip>
             </S.PlantInfo>
 
             <S.Controllers>
-                <Tip>{plant.water_tips}</Tip>
 
                 <S.AlertLabel>
                     Escolha o melhor horário para ser lembrado

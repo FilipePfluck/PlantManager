@@ -106,8 +106,6 @@ export function PlantSelect(){
 
     return loading ? <Load/> : (
         <S.Container>
-            <Header/>
-
             <S.Title>Em que ambiente</S.Title>
             <S.Subtitle>você quer colocar sua planta?</S.Subtitle>
 

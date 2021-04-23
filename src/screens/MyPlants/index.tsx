@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { FlatList, Text } from 'react-native'
+import { FlatList, View } from 'react-native'
 
-import { formatDistance, format, getHours, getMinutes, differenceInHours } from 'date-fns'
+import { getHours} from 'date-fns'
 import { pt } from 'date-fns/locale'
 
 import { PlantProps } from '../../interfaces/plant'
 import { loadPlant } from '../../services/storage'
+
+import { getDifferenceInHours } from '../../utils/getDifferenceInHours'
 
 import Header from '../../components/Header'
 import Tip from '../../components/Tip'
@@ -23,17 +25,9 @@ export function MyPlants () {
 
         const firstPlant = plantsStoraged[0]
 
-        const waterDate = new Date(firstPlant.dateTimeNotification).getTime()
+        const waterDate = new Date(firstPlant.dateTimeNotification)
 
-        const waterHour = getHours(waterDate)
-
-        //const difference = differenceInHours(waterHour, getHours(Date.now()))
-
-        let difference = waterHour - getHours(Date.now())
-
-        if(difference < 0){
-            difference+=24
-        }
+        const difference = getDifferenceInHours(waterDate)
 
         let nextTime 
 
@@ -61,10 +55,9 @@ export function MyPlants () {
 
     return(
         <S.Container>
-            <Header/>
             <Tip>{nextWatering}</Tip>
+            <S.PlantTitle>Suas plantas</S.PlantTitle>
             <S.Plants>
-                <S.PlantTitle>Suas plantas</S.PlantTitle>
                 <FlatList
                     data={myPlants}
                     keyExtractor={item => item.id}
@@ -74,7 +67,6 @@ export function MyPlants () {
                         />
                     )}
                     showsVerticalScrollIndicator={false}
-                    contentContainerStyle={{flex: 1}}
                 />
             </S.Plants>
         </S.Container>

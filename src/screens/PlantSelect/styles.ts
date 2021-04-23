@@ -3,6 +3,7 @@ import styled from 'styled-components/native'
 export const Container = styled.SafeAreaView`
     flex: 1;
     padding: 16px;
+    background-color: #FFF;
 `
 
 export const Title = styled.Text`
@@ -10,7 +11,6 @@ export const Title = styled.Text`
     color: ${props => props.theme.colors.heading};
     font-weight: bold;
     line-height: 20px;
-    margin-top: 16px;
 `
 
 export const Subtitle = styled.Text`

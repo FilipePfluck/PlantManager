@@ -1,7 +1,8 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { format } from 'date-fns'
+import { format, differenceInHours,getHours } from 'date-fns'
 
 import { PlantProps } from '../interfaces/plant'
+import { getDifferenceInHours } from '../utils/getDifferenceInHours'
 
 interface StoragePlantProps {
     [id: string]: {
@@ -45,10 +46,8 @@ export async function loadPlant(): Promise<PlantProps[]> {
                 }
             })
             .sort((a, b) => 
-                Math.floor(
-                    new Date(a.dateTimeNotification).getTime() / 1000
-                    - Math.floor(new Date(b.dateTimeNotification).getTime() / 1000)
-                )
+                getDifferenceInHours(new Date(a.dateTimeNotification))
+                - getDifferenceInHours(new Date(b.dateTimeNotification))
             )
 
         return plantsSorted

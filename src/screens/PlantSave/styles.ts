@@ -3,11 +3,11 @@ import styled from 'styled-components/native'
 import { getBottomSpace } from 'react-native-iphone-x-helper'
 import { RectButton } from 'react-native-gesture-handler'
 
-export const Container = styled.SafeAreaView`
+export const Container = styled.View`
     flex: 1;
-    justify-content: space-around;
     padding: 16px;
     position: relative;
+    justify-content: space-around;
 `
 
 export const PlantInfo = styled.View`
@@ -30,6 +30,8 @@ export const PlantAbout = styled.Text`
     font-size: 18px;
     margin-top: 8px;
     text-align: center;
+
+    margin-bottom: 24px;
 `
 
 export const Controllers = styled.View`

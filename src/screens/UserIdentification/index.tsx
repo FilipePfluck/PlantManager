@@ -33,7 +33,7 @@ export function UserIdentification (){
             subtitle: 'Agora vamos começar a cuidar das suas plantinhas com muito cuidado.',
             buttonTitle: 'Começar',
             icon: 'smile',
-            nextPage: 'PlantSelect'
+            nextPage: 'TabRoutes'
         })
     },[name])
 

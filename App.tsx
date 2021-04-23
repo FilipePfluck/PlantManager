@@ -1,4 +1,5 @@
 import React from 'react';
+import { StatusBar, SafeAreaView } from 'react-native'
 
 import { ThemeProvider } from 'styled-components'
 
@@ -10,7 +11,10 @@ import dark from './src/styles/themes/dark'
 const App = () => {
   return (
     <ThemeProvider theme={light}>
-      <Routes/>
+      <StatusBar barStyle="dark-content" backgroundColor="#FFF"/>
+      <SafeAreaView style={{flex: 1, backgroundColor: '#FfF'}}>
+        <Routes/>
+      </SafeAreaView>
     </ThemeProvider>
   );
 };
