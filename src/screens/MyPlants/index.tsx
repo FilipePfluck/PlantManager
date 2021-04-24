@@ -11,10 +11,9 @@ import { deletePlant, loadPlant } from '../../services/storage'
 import Load from '../../components/Load'
 import Tip from '../../components/Tip'
 import PlantCardSecondary from '../../components/PlantCardSecondary'
+import NoPlants from '../../components/NoPlants'
 
 import * as S from './styles'
-
-
 
 export function MyPlants () {
     const [myPlants, setMyPlants] = useState<PlantProps[]>([])
@@ -126,7 +125,7 @@ export function MyPlants () {
             <Tip>{nextWatering}</Tip>
             <S.PlantTitle>Suas plantas</S.PlantTitle>
             <S.Plants>
-                <FlatList
+                {myPlants[0] && <FlatList
                     data={myPlants}
                     keyExtractor={item => item.id}
                     renderItem={({item})=>(
@@ -137,7 +136,8 @@ export function MyPlants () {
                         />
                     )}
                     showsVerticalScrollIndicator={false}
-                />
+                />}
+                {!myPlants[0] && <NoPlants/>}
             </S.Plants>
         </S.Container>
     )
