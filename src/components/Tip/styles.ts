@@ -20,5 +20,5 @@ export const TipText = styled.Text`
     flex: 1;
     margin-left: 20px;
     color: ${props => props.theme.colors.blue};
-    text-align: justify;
+    font-size: 16px;
 `

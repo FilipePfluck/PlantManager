@@ -16,6 +16,7 @@ export const Container = styled(RectButton)`
 `
 
 export const Title = styled.Text`
+    font-size: 20px;
     flex: 1;
     margin-left: 10px;
     font-weight: bold;
@@ -27,13 +28,13 @@ export const Details = styled.View`
 `
 
 export const TimeLabel = styled.Text`
-    font-size: 16px;
+    font-size: 18px;
     color: ${props => props.theme.colors.body_light};
 `
 
 export const Time = styled.Text`
     margin-top: 4px;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: bold;
     color: ${props => props.theme.colors.body_dark};
 `

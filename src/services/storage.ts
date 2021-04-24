@@ -1,7 +1,13 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { format, differenceInHours,getHours } from 'date-fns'
+import { format, differenceInHours,getHours, getMinutes, getDay } from 'date-fns'
 
 import * as Notifications from 'expo-notifications'
+import { 
+    CalendarTriggerInput, 
+    DailyTriggerInput,
+    WeeklyTriggerInput
+} from 'expo-notifications'
+import { Platform } from 'react-native'
 
 import { PlantProps } from '../interfaces/plant'
 import { getDifferenceInHours } from '../utils/getDifferenceInHours'
@@ -30,19 +36,25 @@ export async function deletePlant(id: string): Promise<void>{
 export async function savePlant(plant: PlantProps): Promise<void>{
     try{    
         const nextTime = new Date(plant.dateTimeNotification)
-        const now = new Date()
+
+        const hour = getHours(nextTime)
+        const minute = getMinutes(nextTime)
+        const weekday = getDay(nextTime)
 
         const { times, repeat_every } = plant.frequency
-        if(repeat_every === 'week'){
-            const interval = Math.trunc(7 / times)
-            nextTime.setDate(now.getDate() + interval)
-        }else{
-            nextTime.setDate(nextTime.getDate() + 1)
+        
+        const dailyTrigger: DailyTriggerInput = {
+            hour,
+            minute,
+            repeats: true
         }
 
-        const seconds = Math.abs(
-            Math.ceil((now.getTime() - nextTime.getTime()) / 1000)
-        )
+        const weeklyTrigger: WeeklyTriggerInput = {
+            hour,
+            minute,
+            weekday,
+            repeats: true
+        }
 
         const notificationId = await Notifications.scheduleNotificationAsync({
             content: {
@@ -54,10 +66,9 @@ export async function savePlant(plant: PlantProps): Promise<void>{
                     plant
                 }
             },
-            trigger: {
-                seconds: seconds < 60 ? 60 : seconds,
-                repeats: true
-            }
+            trigger: repeat_every === 'week' 
+                ? weeklyTrigger 
+                : dailyTrigger
         })
 
         const data = await AsyncStorage.getItem('@plantmanager:plants')
@@ -74,6 +85,8 @@ export async function savePlant(plant: PlantProps): Promise<void>{
             JSON.stringify({...oldPlants, ...newPlant})
         )
     }catch(error){
+        console.log(error)
+
         throw new Error(error)
     }
 }
