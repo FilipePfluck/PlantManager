@@ -1,22 +1,27 @@
 import React, { useEffect, useState } from 'react'
 import { FlatList, Alert } from 'react-native'
+import { useNavigation } from '@react-navigation/core'
+import { getDifferenceInHours } from '../../utils/getDifferenceInHours'
 
 import { PlantProps } from '../../interfaces/plant'
-import { deletePlant, loadPlant, StoragePlantProps } from '../../services/storage'
+import { deletePlant, loadPlant } from '../../services/storage'
 
-import { getDifferenceInHours } from '../../utils/getDifferenceInHours'
+
 
 import Load from '../../components/Load'
 import Tip from '../../components/Tip'
 import PlantCardSecondary from '../../components/PlantCardSecondary'
 
 import * as S from './styles'
-import AsyncStorage from '@react-native-async-storage/async-storage'
+
+
 
 export function MyPlants () {
     const [myPlants, setMyPlants] = useState<PlantProps[]>([])
     const [loading, setLoading] = useState(true)
     const [nextWatering, setNextWatering] = useState('')
+
+    const { navigate } = useNavigation()
 
     async function loadStorageData (){
         const plantsStoraged = await loadPlant()
@@ -128,6 +133,7 @@ export function MyPlants () {
                         <PlantCardSecondary
                             data={item}
                             handleRemove={() => handleRemove(item)}
+                            onPress={()=>navigate('PlantSave', {plant: item})}
                         />
                     )}
                     showsVerticalScrollIndicator={false}

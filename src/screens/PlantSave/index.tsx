@@ -3,19 +3,18 @@ import { SvgFromUri } from 'react-native-svg'
 import { useNavigation, useRoute } from '@react-navigation/core'
 import DateTimePicker, { Event } from '@react-native-community/datetimepicker'
 import { Platform, Alert } from 'react-native'
-import { isBefore, format } from 'date-fns'
+import { format } from 'date-fns'
 import Icon from 'react-native-vector-icons/Feather'
 
-import { savePlant, loadPlant } from '../../services/storage'
+import { savePlant, StoragePlantProps } from '../../services/storage'
 
 import Button from '../../components/Button'
 import Tip from '../../components/Tip'
 
 import * as S from './styles'
 
-import waterDrop from '../../assets/waterdrop.png'
-
 import { PlantProps } from '../../interfaces/plant'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 interface Params {
     plant: PlantProps
@@ -28,9 +27,28 @@ export function PlantSave (){
     const [selectedDateTime, setSelectedDateTime] = useState(new Date())
     const [showDatePicker, setShowDatePicker] = useState(false)
 
+    async function getPlantDate(){
+        const response = await AsyncStorage.getItem('@plantmanager:plants')
+        if(response){
+            const plants = JSON.parse(response) as StoragePlantProps
+
+            const thisPlant = plants[plant.id]
+
+            if(thisPlant){
+                const date = new Date(thisPlant.data.dateTimeNotification)
+
+                return new Date(date)
+            }
+        }
+
+        return new Date()
+    }
+
     useEffect(()=>{
-        console.log(selectedDateTime)
-    },[selectedDateTime])
+        getPlantDate().then(response => {
+            setSelectedDateTime(response)
+        })
+    },[])
 
     const { navigate, goBack } = useNavigation()
 
@@ -118,7 +136,7 @@ export function PlantSave (){
                 )}
 
                 <Button onPress={handleSave}>
-                    Cadastrar planta
+                    Salvar planta
                 </Button>
             </S.Controllers>
             <S.GoBackButton onPress={goBack}>

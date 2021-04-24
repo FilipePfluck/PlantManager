@@ -9,7 +9,7 @@ export const Container = styled.View`
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 0;
+    padding: 8px 0;
     margin-top: ${Platform.OS === 'ios' ? getStatusBarHeight() : 0};
 `
 
