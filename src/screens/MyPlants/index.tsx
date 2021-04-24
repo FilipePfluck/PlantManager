@@ -22,6 +22,15 @@ export function MyPlants () {
         const plantsStoraged = await loadPlant()
 
         const firstPlant = plantsStoraged[0]
+        
+        if(!firstPlant){
+            setNextWatering(`Nenhuma planta para regar`)
+    
+            setMyPlants(plantsStoraged)
+            setLoading(false)
+
+            return
+        }
 
         const waterDate = new Date(firstPlant.dateTimeNotification)
 
@@ -46,6 +55,39 @@ export function MyPlants () {
         setMyPlants(plantsStoraged)
         setLoading(false)
     }
+
+    useEffect(()=>{
+        const firstPlant = myPlants[0]
+
+        if(!firstPlant){
+            setNextWatering(`Nenhuma planta para regar`)
+    
+            setLoading(false)
+
+            return
+        }
+
+        const waterDate = new Date(firstPlant.dateTimeNotification)
+
+        const difference = getDifferenceInHours(waterDate)
+
+        let nextTime 
+
+        if(difference === 0){
+            nextTime = 'a alguns minutos'
+        }
+
+        if(difference === 1){
+            nextTime = 'a uma hora'
+        }
+
+        if(difference > 1){
+            nextTime = `a ${difference} horas`
+        }
+
+        setNextWatering(`Regue sua ${firstPlant.name} daqui ${nextTime}`)
+    
+    },[myPlants])
 
     function handleRemove (plant: PlantProps){
         Alert.alert('Remover', `Deseja remover a ${plant.name}?`, [
