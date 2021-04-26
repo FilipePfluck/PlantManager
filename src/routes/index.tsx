@@ -30,7 +30,7 @@ const Routes = () => {
                 barStyle={theme.title === 'dark' ? 'light-content' : "dark-content" }
                 backgroundColor={theme.colors.background}
             />
-            <SafeAreaView style={{flex: 1}}>
+            <SafeAreaView style={{flex: 1, backgroundColor: theme.colors.background}}>
                 <StackRoutes shouldWelcome={shouldWelcome}/>
             </SafeAreaView>
         </NavigationContainer>
