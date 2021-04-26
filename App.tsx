@@ -1,20 +1,15 @@
-import React from 'react';
-import { StatusBar, SafeAreaView } from 'react-native'
+import React, { useEffect } from 'react';
+import { StatusBar, SafeAreaView, ActivityIndicator } from 'react-native'
 
-import { ThemeProvider } from 'styled-components'
+import {ThemeProvider, useTheme} from './src/context/ThemeContext'
 
 import Routes from './src/routes'
 
-import light from './src/styles/themes/light'
-import dark from './src/styles/themes/dark'
-
 const App = () => {
+
   return (
-    <ThemeProvider theme={light}>
-      <StatusBar barStyle="dark-content" backgroundColor="#FFF"/>
-      <SafeAreaView style={{flex: 1, backgroundColor: '#FfF'}}>
+    <ThemeProvider>
         <Routes/>
-      </SafeAreaView>
     </ThemeProvider>
   );
 };

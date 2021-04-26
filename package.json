@@ -36,6 +36,7 @@
     "react-native-tab-view": "^2.16.0",
     "react-native-unimodules": "^0.13.3",
     "react-native-vector-icons": "^8.1.0",
+    "react-switch": "^6.0.0",
     "styled-components": "^5.2.3"
   },
   "devDependencies": {

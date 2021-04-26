@@ -1,5 +1,6 @@
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useNavigation } from '@react-navigation/core'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Image } from 'react-native'
 
 import Icon from 'react-native-vector-icons/Feather'

@@ -5,6 +5,7 @@ export const Container = styled.SafeAreaView`
     align-items: center;
     justify-content: space-around;
     padding: 16px;
+    background-color: ${props => props.theme.colors.background};
 `
 
 export const Content = styled.View`

@@ -6,6 +6,7 @@ import { RectButton } from 'react-native-gesture-handler'
 export const Container = styled.ScrollView`
     padding: 16px;
     position: relative;
+    background-color: ${props => props.theme.colors.background};
 `
 
 export const PlantInfo = styled.View`

@@ -6,6 +6,7 @@ export const Container = styled.View`
     justify-content: space-between;
     padding: 16px;
     background-color: #FFF;
+    background-color: ${props => props.theme.colors.background};
 `
 
 export const PlantTitle = styled.Text`

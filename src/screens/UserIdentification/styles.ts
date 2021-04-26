@@ -12,6 +12,7 @@ export const Container = styled.SafeAreaView`
     align-items: center;
     justify-content: space-around;
     width: 100%;
+    background-color: ${props => props.theme.colors.background};
 `
 
 export const Content = styled.KeyboardAvoidingView`
@@ -46,6 +47,7 @@ export const Input = styled.TextInput<InputProps>`
     margin-top: 50px;
     padding: 10px;
     text-align: center;
+    color: ${props => props.theme.colors.text};
 `
 
 export const Text = styled.Text`

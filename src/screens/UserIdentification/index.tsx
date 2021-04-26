@@ -3,15 +3,17 @@ import { Keyboard, Platform, TouchableWithoutFeedback } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
+import { useTheme } from '../../context/ThemeContext'
+
 import * as S from './styles'
 
 import Button from '../../components/Button'
 
 export function UserIdentification (){
     const { navigate } = useNavigation()
+    const { theme } = useTheme()
 
     const [isFocused, setIsFocused] = useState(false)
-
     const [isFilled, setIsFilled] = useState(false)
 
     const [name, setName] = useState('')
@@ -20,8 +22,6 @@ export function UserIdentification (){
         setIsFilled(!!value)
         setName(value)
     },[])
-
-    
 
     const handleNavigate = useCallback(async()=>{
         if(!name) return
@@ -53,10 +53,14 @@ export function UserIdentification (){
                                 autoCapitalize="words"
                                 returnKeyType="send"
                                 onSubmitEditing={handleNavigate}
+                                keyboardAppearance={
+                                    theme.title === 'dark' ? 'dark' : 'light'
+                                }
 
                                 isFilled={isFilled}
                                 isFocused={isFocused} 
                                 placeholder="Digite seu nome"
+                                placeholderTextColor={theme.colors.text}
                                 onFocus={()=>setIsFocused(true)}
                                 onBlur={()=>setIsFocused(false)}
                                 onChangeText={handleInputChange}

@@ -13,7 +13,11 @@ import { TabScreen } from '../screens/TabScreen'
 
 const StackRoutes = createStackNavigator()
 
-const AppRoutes: React.FC = () => (
+interface RouteProps {
+    shouldWelcome: boolean
+}
+
+const AppRoutes: React.FC<RouteProps> = ({shouldWelcome}) => (
     <StackRoutes.Navigator
         headerMode="none"
         screenOptions={{
@@ -22,6 +26,13 @@ const AppRoutes: React.FC = () => (
             }
         }}
     >
+        {!shouldWelcome && (
+            <StackRoutes.Screen 
+                name="TabRoutes" 
+                component={TabScreen}
+            />
+        )}
+        
         <StackRoutes.Screen 
             name="welcome" 
             component={Welcome}
@@ -38,10 +49,11 @@ const AppRoutes: React.FC = () => (
             name="PlantSave" 
             component={PlantSave}
         />
-        <StackRoutes.Screen 
+
+        {shouldWelcome && <StackRoutes.Screen 
             name="TabRoutes" 
             component={TabScreen}
-        />
+        />}
     </StackRoutes.Navigator>
 )
 

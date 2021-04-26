@@ -36,3 +36,8 @@ export const Avatar = styled.Image`
     border-radius: 36px;
 `
 
+export const Switch = styled.Switch`
+    height: 65px;
+    width: 100px;
+`
+

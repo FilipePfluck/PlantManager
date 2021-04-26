@@ -1,22 +1,23 @@
 export default {
-    title: 'light',
+    title: 'dark',
 
     colors: {
         green: '#32B768',
-        green_dark: '#2B7A4B',
-        green_light: '#DAF2E4',
+        green_dark: '#3b9660',
+        green_light: '#96e0b4',
 
-        heading: '#52665A',
-        body_dark: '#738078',
-        body_light: '#AAB2AD',
+        heading: '#84D4A4',
+        body_dark: '#93A098',
+        body_light: '#CAD2CD',
 
-        background: '#FFFFFF',
-        shape: '#F0F0F0',
+        background: '#212429',
+        shape: '#2D3138',
         white: '#FFFFFF',
         gray: '#CFCFCF',
+        text: '#CECECE',
 
-        blue: '#3D7199',
-        blue_light: '#EBF6FF',
+        blue: '#2c5d82',
+        blue_light: '#75a4c7',
 
         red: '#E83F5B',
     }

@@ -5,10 +5,13 @@ import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs
 import { MyPlants } from '../screens/MyPlants'
 import { PlantSelect } from '../screens/PlantSelect'
 import { View } from 'react-native'
+import { useTheme } from '../context/ThemeContext'
 
 const { Navigator, Screen } = createMaterialTopTabNavigator()
 
 function Tabs(){
+    const { theme } = useTheme()
+
     return(
 
         <Navigator
@@ -18,8 +21,8 @@ function Tabs(){
                 shadowOpacity: 0,
                 height: 64,
                 borderWidth: 0,
-                borderColor: "#fff",
-                backgroundColor: "#fff"
+                borderColor: theme.colors.background,
+                backgroundColor: theme.colors.background
             },
             tabStyle: {
                 flexDirection: "row",
