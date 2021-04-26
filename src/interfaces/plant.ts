@@ -11,4 +11,5 @@ export interface PlantProps {
         repeat_every: string
     }
     dateTimeNotification: Date
+    weekDays: number[]
 }

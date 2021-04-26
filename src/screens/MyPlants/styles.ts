@@ -13,7 +13,7 @@ export const PlantTitle = styled.Text`
     font-size: 24px;
     font-weight: bold;
     color: ${props => props.theme.colors.heading};
-    margin-bottom: 16px;
+    margin: 24px 0;
 `
 
 export const Plants = styled.View`

@@ -10,6 +10,7 @@ import { savePlant, StoragePlantProps } from '../../services/storage'
 
 import Button from '../../components/Button'
 import Tip from '../../components/Tip'
+import WeekDayPicker from '../../components/WeekDayPicker'
 
 import * as S from './styles'
 
@@ -26,6 +27,8 @@ export function PlantSave (){
 
     const [selectedDateTime, setSelectedDateTime] = useState(new Date())
     const [showDatePicker, setShowDatePicker] = useState(false)
+
+    const [selectedWeekdays, setSelectedWeekdays] = useState<number[]>([])
 
     async function getPlantDate(){
         const response = await AsyncStorage.getItem('@plantmanager:plants')
@@ -50,6 +53,10 @@ export function PlantSave (){
         })
     },[])
 
+    useEffect(()=>{
+        console.log(selectedWeekdays)
+    },[selectedWeekdays])
+
     const { navigate, goBack } = useNavigation()
 
     const handleChangeTime = useCallback(
@@ -66,6 +73,14 @@ export function PlantSave (){
     
     const handleSave = useCallback(async()=>{
         try{
+            const numberOfDays = plant.frequency.times
+
+            if(plant.frequency.repeat_every === 'week'){
+                if(selectedWeekdays.length - 1 !== numberOfDays){
+                    Alert.alert(`por favor, selecione ${numberOfDays} dia${numberOfDays>1 && 's'}`)
+                }
+            }
+
             await savePlant({
                 ...plant,
                 dateTimeNotification: selectedDateTime
@@ -81,7 +96,7 @@ export function PlantSave (){
         }catch{
             Alert.alert('Não foi possível salvar sua plantinha')
         }
-    },[selectedDateTime, plant])
+    },[selectedDateTime, plant, selectedWeekdays])
 
     useEffect(()=>{
         console.log(Platform.OS === 'android' && showDatePicker)
@@ -90,7 +105,7 @@ export function PlantSave (){
     return(
         <S.Container
             showsVerticalScrollIndicator={false}
-            contentContainerStyle={{flex: 1, justifyContent: 'space-around'}}
+            contentContainerStyle={{paddingBottom: 24}}
         >
             <S.PlantInfo>
                 <SvgFromUri 
@@ -107,6 +122,21 @@ export function PlantSave (){
             </S.PlantInfo>
 
             <S.Controllers>
+
+                {plant.frequency.repeat_every === 'week' && (
+                    <>
+                        <S.AlertLabel>
+                            Essa planta precisa ser 
+                            regada {plant.frequency.times} vezes 
+                            por semana.
+                        </S.AlertLabel>
+
+                        <WeekDayPicker
+                            selectedDays={selectedWeekdays}
+                            setSelectedDays={setSelectedWeekdays}
+                        />
+                    </>
+                )}
 
                 <S.AlertLabel>
                     Escolha o melhor horário para ser lembrado

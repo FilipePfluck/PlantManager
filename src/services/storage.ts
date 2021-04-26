@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { format, differenceInHours,getHours, getMinutes, getDay } from 'date-fns'
+import { format, getHours, getMinutes, getDay } from 'date-fns'
 
 import * as Notifications from 'expo-notifications'
 import { 

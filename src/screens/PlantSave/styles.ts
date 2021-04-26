@@ -34,7 +34,6 @@ export const PlantAbout = styled.Text`
 `
 
 export const Controllers = styled.View`
-    padding-top: 20px;
     padding-bottom: ${getBottomSpace() || '20px'};
 `
 
@@ -64,7 +63,7 @@ export const TipText = styled.Text`
 export const AlertLabel = styled.Text`
     text-align: center;
     color: ${props => props.theme.colors.heading};
-
+    margin: 16px 0;
 `
 
 export const DateTimeButton = styled(RectButton)`
@@ -75,7 +74,6 @@ export const DateTimeButton = styled(RectButton)`
     align-items: center;
     padding: 16px;
     width: 100%;
-    margin-top: 32px;
 `
 
 export const DateTimeButtonText = styled.Text`

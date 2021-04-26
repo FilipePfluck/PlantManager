@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { FlatList, Alert } from 'react-native'
-import { useNavigation } from '@react-navigation/core'
+import { useIsFocused, useNavigation } from '@react-navigation/core'
 import { getDifferenceInHours } from '../../utils/getDifferenceInHours'
 
 import { PlantProps } from '../../interfaces/plant'
@@ -16,6 +16,8 @@ import NoPlants from '../../components/NoPlants'
 import * as S from './styles'
 
 export function MyPlants () {
+    const isFocused = useIsFocused()
+
     const [myPlants, setMyPlants] = useState<PlantProps[]>([])
     const [loading, setLoading] = useState(true)
     const [nextWatering, setNextWatering] = useState('')
@@ -91,7 +93,7 @@ export function MyPlants () {
 
         setNextWatering(`Regue sua ${firstPlant.name} daqui ${nextTime}`)
     
-    },[myPlants])
+    },[myPlants, isFocused])
 
     function handleRemove (plant: PlantProps){
         Alert.alert('Remover', `Deseja remover a ${plant.name}?`, [
@@ -118,7 +120,7 @@ export function MyPlants () {
 
     useEffect(()=>{
         loadStorageData()
-    },[])
+    },[isFocused])
 
     return loading ? <Load/> : (
         <S.Container>

@@ -7,7 +7,6 @@ export const Container = styled.View`
     background: ${props => props.theme.colors.blue_light};
     border-radius: 16px;
     padding: 16px;
-    margin-bottom: 24px;
 `
 
 export const TipImage = styled.Image`
