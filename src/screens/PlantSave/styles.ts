@@ -62,7 +62,7 @@ export const TipText = styled.Text`
 
 export const AlertLabel = styled.Text`
     text-align: center;
-    color: ${props => props.theme.colors.heading};
+    color: ${props => props.theme.colors.text};
     margin: 16px 0;
 `
 

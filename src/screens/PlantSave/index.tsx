@@ -76,14 +76,16 @@ export function PlantSave (){
             const numberOfDays = plant.frequency.times
 
             if(plant.frequency.repeat_every === 'week'){
-                if(selectedWeekdays.length - 1 !== numberOfDays){
-                    Alert.alert(`por favor, selecione ${numberOfDays} dia${numberOfDays>1 && 's'}`)
+                if(selectedWeekdays.length !== numberOfDays){
+                    Alert.alert(`por favor, selecione ${numberOfDays} dia${numberOfDays>1 ? 's' : ''}`)
+                    return
                 }
             }
 
             await savePlant({
                 ...plant,
-                dateTimeNotification: selectedDateTime
+                dateTimeNotification: selectedDateTime,
+                weekDays: selectedWeekdays
             })
 
             navigate('Confirmation', {

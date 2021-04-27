@@ -8,7 +8,7 @@ export const Container = styled.View`
 
 export const Text = styled.Text`
     font-size: 22px;
-    color: ${props => props.theme.colors.heading};
+    color: ${props => props.theme.colors.text};
     text-align: center;
     margin-bottom: 8px;
 `

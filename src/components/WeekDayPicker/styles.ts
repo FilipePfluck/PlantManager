@@ -1,7 +1,12 @@
 import { RectButton } from 'react-native-gesture-handler'
-import styled from 'styled-components/native'
+import styled, { css } from 'styled-components/native'
+import { transparentize } from 'polished'
 
 interface DayProps {
+    isSelected: boolean
+}
+
+interface DayTextProps {
     isSelected: boolean
 }
 
@@ -24,7 +29,7 @@ export const DayContainer = styled(RectButton)<DayProps>`
     border-radius: 18px;
     background-color: ${props => {
         return props.isSelected 
-            ? props.theme.colors.green
+            ? transparentize(0.4,props.theme.colors.green_dark)
             : props.theme.colors.shape
         }
     };
@@ -32,6 +37,17 @@ export const DayContainer = styled(RectButton)<DayProps>`
     justify-content: center;
 `
 
-export const DayText = styled.Text`
-    color: ${props => props.theme.colors.text};
+export const DayText = styled.Text<DayTextProps>`
+    color: ${props => {
+        return props.isSelected 
+            ? props.theme.colors.green
+            : props.theme.colors.text
+    }};
+    font-weight: ${props => {
+        return props.isSelected 
+            ? 'bold'
+            : 'normal'
+    }};
+    font-size: 18px;
+    opacity: 1;
 `

@@ -15,7 +15,7 @@ import { getDifferenceInHours } from '../utils/getDifferenceInHours'
 export interface StoragePlantProps {
     [id: string]: {
         data: PlantProps,
-        notificationId: string
+        notifications: string[]
     }
 }
 
@@ -23,7 +23,9 @@ export async function deletePlant(id: string): Promise<void>{
     const data = await AsyncStorage.getItem('@plantmanager:plants')
     const plants = data ? (JSON.parse(data) as StoragePlantProps) : {}
     
-    await Notifications.cancelScheduledNotificationAsync(plants[id].notificationId)
+    for(let notification of plants[id].notifications){
+        await Notifications.cancelScheduledNotificationAsync(notification)
+    }
 
     delete plants[id]
 
@@ -42,34 +44,54 @@ export async function savePlant(plant: PlantProps): Promise<void>{
         const weekday = getDay(nextTime)
 
         const { times, repeat_every } = plant.frequency
-        
-        const dailyTrigger: DailyTriggerInput = {
-            hour,
-            minute,
-            repeats: true
+
+        const notifications = []
+
+        if(repeat_every === 'week'){
+            for(let day of plant.weekDays){
+
+                const notificationId = await Notifications.scheduleNotificationAsync({
+                    content: {
+                        title: 'Heeey',
+                        body: `Está na hora de cuidar da sua ${plant.name}`,
+                        sound: true,
+                        priority: Notifications.AndroidNotificationPriority.HIGH,
+                        data: {
+                            plant
+                        }
+                    },
+                    trigger: {
+                        hour,
+                        minute,
+                        weekday: day,
+                        repeats: true
+                    }
+                })
+
+                notifications.push(notificationId)
+            }
         }
 
-        const weeklyTrigger: WeeklyTriggerInput = {
-            hour,
-            minute,
-            weekday,
-            repeats: true
-        }
-
-        const notificationId = await Notifications.scheduleNotificationAsync({
-            content: {
-                title: 'Heeey',
-                body: `Está na hora de cuidar da sua ${plant.name}`,
-                sound: true,
-                priority: Notifications.AndroidNotificationPriority.HIGH,
-                data: {
-                    plant
+        if(repeat_every === 'day'){
+            const notificationId = await Notifications.scheduleNotificationAsync({
+                content: {
+                    title: 'Heeey',
+                    body: `Está na hora de cuidar da sua ${plant.name}`,
+                    sound: true,
+                    priority: Notifications.AndroidNotificationPriority.HIGH,
+                    data: {
+                        plant
+                    }
+                },
+                trigger: {
+                    hour,
+                    minute,
+                    repeats: true
                 }
-            },
-            trigger: repeat_every === 'week' 
-                ? weeklyTrigger 
-                : dailyTrigger
-        })
+            })
+
+            notifications.push(notificationId)
+        }
 
         const data = await AsyncStorage.getItem('@plantmanager:plants')
         const oldPlants = data ? (JSON.parse(data) as StoragePlantProps) : {}
@@ -77,7 +99,7 @@ export async function savePlant(plant: PlantProps): Promise<void>{
         const newPlant = {
             [plant.id]: {
                 data: plant,
-                notificationId
+                notifications
             }
         }
 

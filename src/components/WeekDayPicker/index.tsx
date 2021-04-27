@@ -24,43 +24,57 @@ const WeekDayPicker: React.FC<WeekDayPickerProps> = ({selectedDays, setSelectedD
                 onPress={()=>toggleSelectedDay(0)}
                 isSelected={selectedDays.includes(0)}
             >
-                <S.DayText>D</S.DayText>
+                <S.DayText isSelected={selectedDays.includes(0)}>
+                    D
+                </S.DayText>
             </S.DayContainer>
             <S.DayContainer
                 onPress={()=>toggleSelectedDay(1)}
                 isSelected={selectedDays.includes(1)}
             >
-                <S.DayText>S</S.DayText>
+                <S.DayText isSelected={selectedDays.includes(1)}>
+                    S
+                </S.DayText>
             </S.DayContainer>
             <S.DayContainer
                 onPress={()=>toggleSelectedDay(2)}
                 isSelected={selectedDays.includes(2)}
             >
-                <S.DayText>T</S.DayText>
+                <S.DayText isSelected={selectedDays.includes(2)}>
+                    T
+                </S.DayText>
             </S.DayContainer>
             <S.DayContainer
                 onPress={()=>toggleSelectedDay(3)}
                 isSelected={selectedDays.includes(3)}
             >
-                <S.DayText>Q</S.DayText>
+                <S.DayText isSelected={selectedDays.includes(3)}>
+                    Q
+                </S.DayText>
             </S.DayContainer>
             <S.DayContainer
                 onPress={()=>toggleSelectedDay(4)}
                 isSelected={selectedDays.includes(4)}
             >
-                <S.DayText>Q</S.DayText>
+                <S.DayText isSelected={selectedDays.includes(4)}>
+                    Q
+                </S.DayText>
             </S.DayContainer>
             <S.DayContainer
                 onPress={()=>toggleSelectedDay(5)}
                 isSelected={selectedDays.includes(5)}
             >
-                <S.DayText>S</S.DayText>
+                <S.DayText isSelected={selectedDays.includes(5)}>
+                    S
+                </S.DayText>
             </S.DayContainer>
             <S.DayContainer
                 onPress={()=>toggleSelectedDay(6)}
                 isSelected={selectedDays.includes(6)}
             >
-                <S.DayText>S</S.DayText>
+                <S.DayText isSelected={selectedDays.includes(6)}>
+                    S
+                </S.DayText>
             </S.DayContainer>
             
         </S.Container>

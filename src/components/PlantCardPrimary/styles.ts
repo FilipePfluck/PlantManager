@@ -15,6 +15,6 @@ export const Container = styled(RectButton)`
 `
 
 export const TextButton = styled.Text`
-    color: ${props => props.theme.colors.green_dark};
+    color: ${props => props.theme.colors.text};
     margin: 16px 0;
 `
