@@ -1,5 +1,5 @@
 import React from 'react'
-import { Animated, View } from 'react-native'
+import { Animated, View, Image } from 'react-native'
 
 import { RectButtonProps } from 'react-native-gesture-handler'
 import Swipeable from 'react-native-gesture-handler/Swipeable'
@@ -39,13 +39,18 @@ const PlantCardSecondary: React.FC<PlantProps> = ({data, handleRemove, ...rest})
             )}
         >
             <S.Container {...rest}>
-                <SvgFromUri uri={data.photo} width={52} height={52}/>
-                <S.Title>{data.name}</S.Title>
+                <Image 
+                    source={{uri: data.photo}} 
+                    style={{height: 100, width: 100, borderRadius: 16}}
+                />
+                    <S.TextContainer>
+                        <S.Title>{data.name}</S.Title>
 
-                <S.Details>
-                    <S.TimeLabel>Regar às</S.TimeLabel>
-                    <S.Time>{data.hour}</S.Time>
-                </S.Details>
+                        <S.Details>
+                            <S.TimeLabel>Regar às</S.TimeLabel>
+                            <S.Time>{data.hour}</S.Time>
+                        </S.Details>
+                    </S.TextContainer>
             </S.Container>
         </Swipeable>
     )

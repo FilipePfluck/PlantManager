@@ -106,31 +106,10 @@ export function PlantSelect(){
 
     return loading ? <Load/> : (
         <S.Container>
-            <S.Title>Em que ambiente</S.Title>
-            <S.Subtitle>você quer colocar sua planta?</S.Subtitle>
-
-            <View>
-                <FlatList 
-                    data={environments}
-                    renderItem={({item})=>(
-                        <EnviromentButton 
-                            isActive={item.key === environmentSelected}
-                            onPress={()=>handleEnvironmentSelected(item.key)}
-                        >
-                            {item.title}
-                        </EnviromentButton>
-                    )}
-                    keyExtractor={item => item.key}
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    contentContainerStyle={{
-                        marginVertical: 24,
-                        height: 40,
-                        paddingBottom: 5,
-                        justifyContent: 'center'
-                    }}
-                />
-            </View>
+            <S.TextContainer>
+                <S.Title>Selecione uma planta</S.Title>
+                <S.Subtitle>Nós vamos te lembrar de regar ela</S.Subtitle>
+            </S.TextContainer>
 
             <S.PlantListContainer>
                 <FlatList 

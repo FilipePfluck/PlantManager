@@ -17,7 +17,10 @@ export default {
         text: '#CECECE',
 
         blue: '#2c5d82',
-        blue_light: '#75a4c7',
+        blue_light: '#85b3d6',
+
+        yellow: '#6b4c00',
+        yellow_light: '#edc364',
 
         red: '#E83F5B',
     }

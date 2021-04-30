@@ -124,7 +124,7 @@ export function MyPlants () {
 
     return loading ? <Load/> : (
         <S.Container>
-            <Tip>{nextWatering}</Tip>
+            <Tip type="water">{nextWatering}</Tip>
             <S.PlantTitle>Suas plantas</S.PlantTitle>
             <S.Plants>
                 {myPlants[0] && <FlatList

@@ -1,4 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
+import { Image } from 'react-native'
+
 import { SvgFromUri } from 'react-native-svg'
 import { useNavigation, useRoute } from '@react-navigation/core'
 import DateTimePicker, { Event } from '@react-native-community/datetimepicker'
@@ -110,17 +112,17 @@ export function PlantSave (){
             contentContainerStyle={{paddingBottom: 24}}
         >
             <S.PlantInfo>
-                <SvgFromUri 
-                    uri={plant.photo}
-                    height={150}
-                    width={150}
+                <Image
+                    source={{uri: plant.photo}}
+                    style={{height: 160, width: 160, borderRadius: 24}}
                 />
 
                 <S.PlantName>{plant.name}</S.PlantName>
 
                 <S.PlantAbout>{plant.about}</S.PlantAbout>
 
-                <Tip>{plant.water_tips}</Tip>
+                <Tip type="water">{plant.water_tips}</Tip>
+                <Tip type="sun">{plant.sun_tips}</Tip>
             </S.PlantInfo>
 
             <S.Controllers>
@@ -129,8 +131,8 @@ export function PlantSave (){
                     <>
                         <S.AlertLabel>
                             Essa planta precisa ser 
-                            regada {plant.frequency.times} vezes 
-                            por semana.
+                            regada {plant.frequency.times} vez{plant.frequency.times > 1 ? 'es' : ''} por
+                            semana.
                         </S.AlertLabel>
 
                         <WeekDayPicker
@@ -138,6 +140,12 @@ export function PlantSave (){
                             setSelectedDays={setSelectedWeekdays}
                         />
                     </>
+                )}
+
+                {plant.frequency.repeat_every === 'day' && (
+                    <S.AlertLabel>
+                        Essa planta precisa ser regada todo dia
+                    </S.AlertLabel>
                 )}
 
                 <S.AlertLabel>

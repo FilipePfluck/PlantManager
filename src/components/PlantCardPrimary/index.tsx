@@ -1,4 +1,5 @@
 import React from 'react'
+import { Image } from 'react-native'
 
 import { RectButtonProps } from 'react-native-gesture-handler'
 import { SvgFromUri } from 'react-native-svg'
@@ -16,8 +17,13 @@ interface PlantProps extends RectButtonProps {
 const PlantCardPrimary: React.FC<PlantProps> = ({data, ...rest}) => {
     return(
         <S.Container {...rest}>
-            <SvgFromUri uri={data.photo} width={70} height={70}/>
-            <S.TextButton>{data.name}</S.TextButton>
+            <Image 
+                source={{uri: data.photo}} 
+                style={{height: 160, width: 160, borderRadius: 16}}
+            />
+            <S.TextContainer>
+                <S.TextButton>{data.name}</S.TextButton>
+            </S.TextContainer>
         </S.Container>
     )
 }

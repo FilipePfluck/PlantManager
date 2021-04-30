@@ -4,6 +4,7 @@ import { RectButton, RectButtonProps } from 'react-native-gesture-handler'
 
 
 export const Container = styled(RectButton)`
+    height: 100px;
     flex-direction: row;
     align-items: center;
 
@@ -11,8 +12,15 @@ export const Container = styled(RectButton)`
     background-color: ${props => props.theme.colors.shape};
     border-radius: 24px;
 
-    padding: 42px 18px;
+    /* padding: 42px 18px; */
     margin: 6px 0;
+`
+
+export const TextContainer = styled.View`
+    flex-direction: row;
+    align-items: center;
+    padding: 16px;
+    flex: 1;
 `
 
 export const Title = styled.Text`
@@ -20,7 +28,7 @@ export const Title = styled.Text`
     flex: 1;
     margin-left: 10px;
     font-weight: bold;
-    color: ${props => props.theme.colors.heading};
+    color: ${props => props.theme.colors.text};
 `
 
 export const Details = styled.View`
@@ -41,13 +49,13 @@ export const Time = styled.Text`
 
 export const Remove = styled(RectButton)`
     width: 100px;
-    height: 120px;
+    height: 90px;
     background-color: ${props => props.theme.colors.red};
-    margin-top: 15px;
     border-radius: 24px;
     justify-content: center;
     align-items: center;
     position: relative;
+    margin-top: 10px;
     right: 20px;
     padding-left: 16px;
 `

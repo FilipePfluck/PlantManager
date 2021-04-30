@@ -25,9 +25,9 @@ export const PlantName = styled.Text`
 `
 
 export const PlantAbout = styled.Text`
-    color: ${props => props.theme.colors.heading};
+    color: ${props => props.theme.colors.text};
     font-size: 18px;
-    margin-top: 8px;
+    margin-top: 12px;
     text-align: center;
 
     margin-bottom: 24px;
@@ -78,13 +78,13 @@ export const DateTimeButton = styled(RectButton)`
 
 export const DateTimeButtonText = styled.Text`
     font-size: 20px;
-    color: ${props => props.theme.colors.heading};
+    color: ${props => props.theme.colors.text};
 `
 
 export const DateText = styled.Text`
     font-size: 32px;
     font-weight: bold;
-    color: ${props => props.theme.colors.heading};
+    color: ${props => props.theme.colors.text};
 `
 
 export const GoBackButton = styled.TouchableOpacity`
