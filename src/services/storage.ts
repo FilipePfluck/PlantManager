@@ -130,8 +130,16 @@ export async function loadPlant(): Promise<PlantProps[]> {
                 }
             })
             .sort((a, b) => 
-                getDifferenceInHours(new Date(a.dateTimeNotification))
-                - getDifferenceInHours(new Date(b.dateTimeNotification))
+                /* getDifferenceInHours(new Date(a.dateTimeNotification))
+                - getDifferenceInHours(new Date(b.dateTimeNotification)) */
+                getDifferenceInHours({
+                    dateTimeNotification: new Date(a.dateTimeNotification),
+                    weekdays: a.weekDays
+                })
+                - getDifferenceInHours({
+                    dateTimeNotification: new Date(b.dateTimeNotification),
+                    weekdays: b.weekDays
+                })
             )
 
         return plantsSorted

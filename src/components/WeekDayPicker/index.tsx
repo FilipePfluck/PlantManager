@@ -21,19 +21,11 @@ const WeekDayPicker: React.FC<WeekDayPickerProps> = ({selectedDays, setSelectedD
     return(
         <S.Container>
             <S.DayContainer
-                onPress={()=>toggleSelectedDay(0)}
-                isSelected={selectedDays.includes(0)}
-            >
-                <S.DayText isSelected={selectedDays.includes(0)}>
-                    D
-                </S.DayText>
-            </S.DayContainer>
-            <S.DayContainer
                 onPress={()=>toggleSelectedDay(1)}
                 isSelected={selectedDays.includes(1)}
             >
                 <S.DayText isSelected={selectedDays.includes(1)}>
-                    S
+                    D
                 </S.DayText>
             </S.DayContainer>
             <S.DayContainer
@@ -41,7 +33,7 @@ const WeekDayPicker: React.FC<WeekDayPickerProps> = ({selectedDays, setSelectedD
                 isSelected={selectedDays.includes(2)}
             >
                 <S.DayText isSelected={selectedDays.includes(2)}>
-                    T
+                    S
                 </S.DayText>
             </S.DayContainer>
             <S.DayContainer
@@ -49,7 +41,7 @@ const WeekDayPicker: React.FC<WeekDayPickerProps> = ({selectedDays, setSelectedD
                 isSelected={selectedDays.includes(3)}
             >
                 <S.DayText isSelected={selectedDays.includes(3)}>
-                    Q
+                    T
                 </S.DayText>
             </S.DayContainer>
             <S.DayContainer
@@ -65,7 +57,7 @@ const WeekDayPicker: React.FC<WeekDayPickerProps> = ({selectedDays, setSelectedD
                 isSelected={selectedDays.includes(5)}
             >
                 <S.DayText isSelected={selectedDays.includes(5)}>
-                    S
+                    Q
                 </S.DayText>
             </S.DayContainer>
             <S.DayContainer
@@ -73,6 +65,14 @@ const WeekDayPicker: React.FC<WeekDayPickerProps> = ({selectedDays, setSelectedD
                 isSelected={selectedDays.includes(6)}
             >
                 <S.DayText isSelected={selectedDays.includes(6)}>
+                    S
+                </S.DayText>
+            </S.DayContainer>
+            <S.DayContainer
+                onPress={()=>toggleSelectedDay(7)}
+                isSelected={selectedDays.includes(7)}
+            >
+                <S.DayText isSelected={selectedDays.includes(7)}>
                     S
                 </S.DayText>
             </S.DayContainer>

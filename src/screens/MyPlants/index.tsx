@@ -40,7 +40,10 @@ export function MyPlants () {
 
         const waterDate = new Date(firstPlant.dateTimeNotification)
 
-        const difference = getDifferenceInHours(waterDate)
+        const difference = getDifferenceInHours({
+            dateTimeNotification: waterDate,
+            weekdays: firstPlant.weekDays
+        })
 
         let nextTime 
 
@@ -75,7 +78,10 @@ export function MyPlants () {
 
         const waterDate = new Date(firstPlant.dateTimeNotification)
 
-        const difference = getDifferenceInHours(waterDate)
+        const difference = getDifferenceInHours({
+            dateTimeNotification: waterDate,
+            weekdays: firstPlant.weekDays
+        })
 
         let nextTime 
 
