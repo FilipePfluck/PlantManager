@@ -38,6 +38,6 @@ export const Avatar = styled.Image`
 
 export const Switch = styled.Switch`
     height: 65px;
-    width: 100px;
+    width: 100px;   
 `
 

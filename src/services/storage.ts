@@ -2,12 +2,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { format, getHours, getMinutes, getDay } from 'date-fns'
 
 import * as Notifications from 'expo-notifications'
-import { 
-    CalendarTriggerInput, 
-    DailyTriggerInput,
-    WeeklyTriggerInput
-} from 'expo-notifications'
-import { Platform } from 'react-native'
 
 import { PlantProps } from '../interfaces/plant'
 import { getDifferenceInHours } from '../utils/getDifferenceInHours'

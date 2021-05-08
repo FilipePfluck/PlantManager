@@ -21,7 +21,7 @@ export const Subtitle = styled.Text`
     text-align: center;
     font-size: 18px;
     padding: 0 20px;
-    color: ${props => props.theme.colors.heading};
+    color: ${props => props.theme.colors.text};
 `
 
 export const Button = styled.TouchableOpacity`

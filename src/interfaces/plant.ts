@@ -1,6 +1,5 @@
 export interface PlantProps {
-    hour: string
-    id: string
+    id: number
     name: string
     about: string
     water_tips: string
@@ -11,6 +10,7 @@ export interface PlantProps {
         times: number
         repeat_every: string
     }
-    dateTimeNotification: Date
-    weekDays: number[]
+    hour?: string
+    dateTimeNotification?: Date
+    weekDays?: number[]
 }

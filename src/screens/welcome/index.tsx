@@ -1,6 +1,5 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useNavigation } from '@react-navigation/core'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Image } from 'react-native'
 
 import Icon from 'react-native-vector-icons/Feather'
@@ -11,6 +10,15 @@ import * as S from './styles'
 
 export const Welcome = () => {
     const { navigate } = useNavigation()
+    const handleNavigate = () => {
+        navigate('Confirmation', {
+            title: 'Atenção',
+            subtitle: 'Nossa missão é apenas te lembrar de regar as plantas. Note que a frequência com que você deve regar pode variar conforme a estação e o clima da sua região. O melhor é ficar de olho na sua plantinha, ok?',
+            buttonTitle: 'Entendi!',
+            icon: 'thinking',
+            nextPage: 'UserIdentification'
+        })
+    }
 
     return(
         <S.Container>
@@ -27,7 +35,7 @@ export const Welcome = () => {
             </S.Subtitle>
             <S.Button 
                 activeOpacity={0.7} 
-                onPress={()=>{navigate('UserIdentification')}}
+                onPress={handleNavigate}
             >
                 <Icon name="chevron-right" size={24} color="#FFF"/>
             </S.Button>

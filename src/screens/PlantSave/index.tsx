@@ -1,14 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { Image } from 'react-native'
 
-import { SvgFromUri } from 'react-native-svg'
 import { useNavigation, useRoute } from '@react-navigation/core'
 import DateTimePicker, { Event } from '@react-native-community/datetimepicker'
 import { Platform, Alert } from 'react-native'
 import { format } from 'date-fns'
 import Icon from 'react-native-vector-icons/Feather'
 
-import { savePlant, StoragePlantProps } from '../../services/storage'
+import { savePlant, StoragePlantProps, deletePlant } from '../../services/storage'
 
 import Button from '../../components/Button'
 import Tip from '../../components/Tip'
@@ -24,6 +23,8 @@ interface Params {
 }
 
 export function PlantSave (){
+    const { navigate, goBack } = useNavigation()
+
     const route = useRoute()
     const { plant } = route.params as Params
 
@@ -32,7 +33,11 @@ export function PlantSave (){
 
     const [selectedWeekdays, setSelectedWeekdays] = useState<number[]>([])
 
-    async function getPlantDate(){
+    const [plantAlreadyExists, setPlantAlreadyExists] = useState(false)
+
+    
+
+    async function getPlantData(){
         const response = await AsyncStorage.getItem('@plantmanager:plants')
         if(response){
             const plants = JSON.parse(response) as StoragePlantProps
@@ -40,26 +45,27 @@ export function PlantSave (){
             const thisPlant = plants[plant.id]
 
             if(thisPlant){
-                const date = new Date(thisPlant.data.dateTimeNotification)
-
-                return new Date(date)
+                return {
+                    date: new Date(thisPlant.data.dateTimeNotification),
+                    weekdays: thisPlant.data.weekDays
+                }
             }
-        }
-
-        return new Date()
+        }    
     }
 
     useEffect(()=>{
-        getPlantDate().then(response => {
-            setSelectedDateTime(response)
+        getPlantData().then(response => {
+            if(response){
+                if(response.date){
+                    setSelectedDateTime(response.date)
+                }
+                if(response.weekdays){
+                    setSelectedWeekdays(response.weekdays)
+                }
+                setPlantAlreadyExists(true)
+            }
         })
     },[])
-
-    useEffect(()=>{
-        console.log(selectedWeekdays)
-    },[selectedWeekdays])
-
-    const { navigate, goBack } = useNavigation()
 
     const handleChangeTime = useCallback(
         (event: Event, dateTime: Date | undefined)=>{
@@ -102,9 +108,25 @@ export function PlantSave (){
         }
     },[selectedDateTime, plant, selectedWeekdays])
 
-    useEffect(()=>{
-        console.log(Platform.OS === 'android' && showDatePicker)
-    },[showDatePicker])
+    function handleRemove (plant: PlantProps){
+        Alert.alert('Remover', `Deseja remover a ${plant.name}?`, [
+            {
+                text: 'Não',
+                style: 'cancel'
+            },
+            {
+                text: 'Sim',
+                onPress: async () => {
+                    try{
+                        await deletePlant(plant.id)
+                        navigate('TabRoutes')
+                    }catch (error){
+                        Alert.alert('Não foi possível remover')
+                    }
+                }
+            }
+        ])
+    }
 
     return(
         <S.Container
@@ -178,6 +200,9 @@ export function PlantSave (){
                 <Button onPress={handleSave}>
                     Salvar planta
                 </Button>
+                { plantAlreadyExists && <Button onPress={()=>handleRemove(plant)} isDanger>
+                    Deletar planta
+                </Button>}
             </S.Controllers>
             <S.GoBackButton onPress={goBack}>
                 <Icon name="chevron-left" color="#ccc" size={32}/>

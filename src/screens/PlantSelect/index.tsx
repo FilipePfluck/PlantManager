@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react'
 
-import { FlatList, View, ActivityIndicator } from 'react-native'
+import { FlatList, ActivityIndicator } from 'react-native'
 
 import * as S from './styles'
 
-import Header from '../../components/Header'
-import EnviromentButton from '../../components/EnviromentButton'
 import PlantCardPrimary from '../../components/PlantCardPrimary'
 import Load from '../../components/Load'
 
@@ -22,21 +20,16 @@ interface EnvProps {
 export function PlantSelect(){
     const { navigate } = useNavigation()
 
-    const [environments, setEnvironments] = useState<EnvProps[]>([])
     const [plants, setPlants] = useState<PlantProps[]>([])
     const [filteredPlants, setFilteredPlants] = useState<PlantProps[]>([])
-    const [environmentSelected, setEnvironmentSelected] = useState('all')
     const [loading, setLoading] = useState(true)
     
     const [page, setPage] = useState(1)
     const [loadingMore, setLoadingMore] = useState(false)
     const [loadedAll, setLoadedAll] = useState(false)
 
-    function handleEnvironmentSelected(environment: string) {
-        setEnvironmentSelected(environment)
-    }
-
     async function fetchPlants() {
+
         const { data } = await api.get(`plants?_sort=name&_order=asc&_page=${page}&_limit=8`)
 
         if(!data)
@@ -73,32 +66,15 @@ export function PlantSelect(){
     }
 
     useEffect(()=>{
-        if (environmentSelected === 'all')
+        /* if (environmentSelected === 'all')
         return setFilteredPlants(plants)
 
         const filtered = plants.filter(plant => 
         plant.environments.includes(environmentSelected)
-        )
+        ) */
 
-        setFilteredPlants(filtered)
-    },[environmentSelected, plants])
-
-    useEffect(() => {
-        async function fetchEnvironment() {
-        const { data } = await api
-        .get('plants_environments?_sort=title&_order=asc')
-
-        setEnvironments([
-            {
-            key: 'all',
-            title: 'Todos'
-            },
-            ...data
-        ])
-        }
-
-        fetchEnvironment()
-    }, [])
+        setFilteredPlants(plants)
+    },[plants])
 
     useEffect(() => {
         fetchPlants()
@@ -129,7 +105,7 @@ export function PlantSelect(){
                     }
                     ListFooterComponent={
                         loadingMore 
-                            ? <ActivityIndicator color="#32B768"/>
+                            ? <ActivityIndicator color="#32B768" size={24}/>
                             : <></>
                     }
                 />

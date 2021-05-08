@@ -5,9 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import { Welcome } from '../screens/welcome'
 import { UserIdentification } from '../screens/UserIdentification'
 import { Confirmation } from '../screens/Confirmation'
-import { PlantSelect } from '../screens/PlantSelect'
 import { PlantSave } from '../screens/PlantSave'
-import { MyPlants } from '../screens/MyPlants'
 
 import { TabScreen } from '../screens/TabScreen'
 
@@ -32,7 +30,7 @@ const AppRoutes: React.FC<RouteProps> = ({shouldWelcome}) => (
                 component={TabScreen}
             />
         )}
-        
+
         <StackRoutes.Screen 
             name="welcome" 
             component={Welcome}

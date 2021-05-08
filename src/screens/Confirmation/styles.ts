@@ -32,7 +32,7 @@ export const Title = styled.Text`
 export const Subtitle = styled.Text`
     font-size: 18px;
     padding: 0 20px;
-    color: ${props => props.theme.colors.heading};
+    color: ${props => props.theme.colors.text};
 `
 
 export const Footer = styled.View`

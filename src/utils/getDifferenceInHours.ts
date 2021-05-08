@@ -28,7 +28,7 @@ export function getDifferenceInHours ({ dateTimeNotification, weekdays}: functio
         difference+=24
     }
 
-    if(weekdays){
+    if(weekdays[0]){
         const todayWeekDay = getDay(Date.now())+1
  
         let nextWeekDay = weekdays[0]
@@ -55,21 +55,23 @@ export function getDifferenceInHours ({ dateTimeNotification, weekdays}: functio
 
         const now = Date.now()
 
-        switch(nextWeekDay){
-            case 1: nextWeekDayDate = nextSunday(now); break
-            case 2: nextWeekDayDate = nextMonday(now); break
-            case 3: nextWeekDayDate = nextTuesday(now); break
-            case 4: nextWeekDayDate = nextWednesday(now); break
-            case 5: nextWeekDayDate = nextThursday(now); break
-            case 6: nextWeekDayDate = nextFriday(now); break
-            case 7: nextWeekDayDate = nextSaturday(now); break
-            default: nextWeekDayDate = nextSunday(now); break
+        if(todayWeekDay === nextWeekDay){
+            nextWeekDayDate = now
+        }else{
+            switch(nextWeekDay){
+                case 1: nextWeekDayDate = nextSunday(now); break
+                case 2: nextWeekDayDate = nextMonday(now); break
+                case 3: nextWeekDayDate = nextTuesday(now); break
+                case 4: nextWeekDayDate = nextWednesday(now); break
+                case 5: nextWeekDayDate = nextThursday(now); break
+                case 6: nextWeekDayDate = nextFriday(now); break
+                case 7: nextWeekDayDate = nextSaturday(now); break
+                default: nextWeekDayDate = nextSunday(now); break
+            }
         }
 
         difference += differenceInHours(nextWeekDayDate, now)
     }
-
-    console.log('difference:',difference)
 
     return difference
 }

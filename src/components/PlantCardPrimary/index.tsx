@@ -2,7 +2,6 @@ import React from 'react'
 import { Image } from 'react-native'
 
 import { RectButtonProps } from 'react-native-gesture-handler'
-import { SvgFromUri } from 'react-native-svg'
 
 import * as S from './styles'
 
