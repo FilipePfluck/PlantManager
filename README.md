@@ -19,7 +19,7 @@ Typescript
 <br/>Lottie
 
 ## Imagem de demonstração
-![PlantManager](/image/image.png)
+![PlantManager](/image/Screenshot from 2021-05-02 18-37-10.png)
 
 ## Como instalar 
 
