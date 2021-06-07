@@ -18,9 +18,6 @@ Typescript
 <br/>Expo notifications
 <br/>Lottie
 
-## Imagem de demonstração
-![PlantManager](/image/Screenshot from 2021-05-02 18-37-10.png)
-
 ## Como instalar 
 
 Um projeto de React Native é mais complicadinho de rodar em desenvolvimento na sua máquina. Mas em breve eu pretendo colocar na loja e por o link aqui.
